@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+int main() {
+    int p;
+    scanf("%d", &p);
+    long long dp[31][2][3] = {0};
+    dp[1][0][1] = 1;  
+    dp[1][1][1] = 1;  
+
+    for (int i = 2; i <= p; i++) {
+        for (int last = 0; last <= 1; last++) {
+            for (int count = 1; count <= 2; count++) {
+                long long ways = dp[i - 1][last][count];
+
+                if (ways == 0) continue;
+                if (count < 2) {
+                    dp[i][last][count + 1] += ways;
+                }
+                int next_digit = 1 - last;
+                dp[i][next_digit][1] += ways;
+            }
+        }
+    }
+
+    long long result = dp[p][0][1] + dp[p][0][2] + dp[p][1][1] + dp[p][1][2];
+    printf("%lld\n", result);
+
+    return 0;
+}

@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+int minSteps(int x, int y) {
+    int d = y - x;
+
+    if (d == 0) return 0;
+    if (d == 1) return 1;
+
+    int k = 1;
+    int sum = 0;
+
+    while (1) {
+        sum += k / 2 + 1;
+        if (sum * 2 - (k % 2) >= d) {
+            return k;
+        }
+        k++;
+    }
+}
+
+int main() {
+    int x, y;
+    scanf("%d %d", &x, &y);
+    printf("%d\n", minSteps(x, y));
+    return 0;
+}
